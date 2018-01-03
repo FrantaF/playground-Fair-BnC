@@ -1,0 +1,27 @@
+<%= render partial: "users/navbar" %>
+
+<div class="jumbotron" style="padding-top:150px;">
+  <%= image_tag("fairbnc-room-photo.jpg") %>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8">
+    <h1 class="list-group-item-heading"><%= @listing.name %>
+    <p class="lead"><%= @listing.property_type %> &middot; <%= @listing.country %></p>
+    <p class="list-group-item-text" style="font-size:1em;"><i class="fa fa-group"></i>&nbsp;<%= @listing.guest_number %>&nbsp;GUESTS&nbsp;&nbsp;
+      <i class="fa fa-home"></i>&nbsp;<%= @listing.room_number %>&nbsp;ROOMS&nbsp;&nbsp;
+      <i class="fa fa-bed"></i>&nbsp;<%= @listing.bed_number %>&nbsp;BEDS
+    </p>
+    </div>
+    <div class="col-lg-4">
+      <%= link_to "#{image_tag("fairbnc-profile-photo.jpg", style:"border-radius:50%; height:100px; width:100px")}".html_safe, user_path(@listing.user_id)%>
+      <p class="lead" style="font-size:1.5em;"><%= User.find(params[:user_id]).first_name %> <%= User.find(params[:user_id]).last_name %></p>
+    </div>
+  </div>
+  <div class="row col-lg-12">
+    <p style="font-size:1.5em;"><%=@listing.description%></p>
+  </div>
+</div>
+
+<%= render partial: "users/footer" %>

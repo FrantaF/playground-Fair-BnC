@@ -8,9 +8,9 @@
 }
 
 .align-center {
-  top: 50%;
+  position: relative;
   left:50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%);
 }
 
 #facebook-btn:active {
@@ -73,6 +73,18 @@
 
 .navbar-align {
   padding-top: 10px;
+}
 
+.update-box, .new-list-box {
+  width: 60%;
+  border: 1px solid #ececec;
+  padding: 20px;
+}
 
+.form-background {
+  background-image:url("form-background.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: top;
+  background-blend-mode:lighten;
 }
