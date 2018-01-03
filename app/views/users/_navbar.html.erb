@@ -1,66 +1,126 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= image_tag("fairbnc-logo.png",:style => "height:50px;width:auto;") %>
-      <!-- <a class="navbar-brand" href="#">Brand</a> -->
+    <div class="col-lg-1">
+     <%= image_tag("fairbnc-logo.png", style: "height:65px; width:auto;") %>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-      </form>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <% if signed_in? %>
-            Signed in as: <%= current_user.email %>
-            <%= button_to 'Sign out', sign_out_path, method: :delete %>
-          <% else %>
-            <%= link_to 'Sign in', sign_in_path %>
+    <form class="navbar-form navbar-left">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <ul class="nav navbar-nav navbar-right col-lg-4 navbar-align">
+      <li style="font-size:1.25em;"><a href="#">Become a Host</a></li>
+      <li style="font-size:1.25em;"><a href="#">Help</a></li>
+      <% if signed_in? %>
+      <li style="font-size:1.25em;"><%= link_to 'Sign out', sign_out_path, method: :delete%></li>
+      <!-- <div class="text-justify">
+        <li style="font-size:1.25em;"><strong>Welcome!</strong></li>
+        <li style="font-size:1.25em;"><strong><%= current_user.email %></strong></li>
+      </div> -->
+      <% else %>
+        <li style="font-size:1.25em;"><a href="#" data-toggle="modal" data-target="#SignUpModal">Sign up</a></li>
+        <li style="font-size:1.25em;"><a href="#" data-toggle="modal" data-target="#LogInModal">Log in</a></li>
+      <% end %>
+        <!-- <div id="flash">
+          <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
           <% end %>
-          <div id="flash">
-            <% flash.each do |key, value| %>
-            <div class="flash <%= key %>"><%= value %></div>
-            <% end %>
-          </div>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+        </div> -->
+    </ul>
+  </div>
 </nav>
+
+
+<!-- Modal for Sign up Form -->
+<div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel" style="font-size: 2em;">Create New Account</h4>
+      </div>
+      <div class="modal-body">
+          <div id="clearance" class="sign-up">
+            <!-- <h2><%= t(".title") %></h2> -->
+            <p class="text-center" style="font-size: 2rem;">Sign up with <%= link_to "Facebook", "/auth/facebook" %></p>
+            <%= form_for @user do |form| %>
+              <%= render partial: '/users/form', object: form %>
+              <div class="form-group">
+                <%= form.submit "Sign up", class:"btn btn-default form-control btn-danger"%>
+              </div>
+              <div class="other-links">
+                <p class="text-center" style="font-size: 2rem;"> Already have a Fairbnc account?
+                <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#LogInModal">Log in</a></p>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for Log in Form -->
+<div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel" style="font-size: 2em;">Log in to Continue</h4>
+      </div>
+      <div class="modal-body">
+          <div id="clearance" class="sign-up">
+            <!-- <h2><%= t(".title") %></h2> -->
+            <button type="button" onclick="window.location.href='/auth/facebook'" class="btn btn-primary form-control"><i class="fa fa-facebook"></i> &nbsp; Continue with Facebook</button>
+            <hr class="hr-text" data-content="or continue with">
+
+            <%= form_for :session, url: session_path do |form| %>
+              <div class="text-field form-group">
+                <%= form.text_field :email, type: 'email', placeholder:"Email", class:"form-control" %>
+              </div>
+              <div class="password-field form-group">
+                <%= form.password_field :password, placeholder:"Password", class: "form-control" %>
+              </div>
+              <div class="form-group">
+                <%= form.submit "Log in", class:"btn btn-default form-control btn-danger"%>
+              </div>
+              <div class="other-links">
+                <% if Clearance.configuration.allow_sign_up? %>
+                <span class="text-center" style="font-size:1.25em;">Don't have an account? <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#SignUpModal">Sign up</a></span>
+                <% end %>
+                <span class="pull-right" style="font-size:1.25em;"><a href="#" data-toggle="modal" data-dismiss="modal" data-target="#ForgotPasswordModal">Forgot Password?</a></span>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal for Forgot Password Form -->
+<div class="modal fade" id="ForgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" id="myModalLabel" style="font-size: 2em;">Retrieve your password</h4>
+      </div>
+      <div class="modal-body">
+          <div id="clearance" class="sign-up">
+            <%= form_for :password, url: passwords_path do |form| %>
+              <div class="text-field form-group">
+                <%= form.label :email %>
+                <%= form.text_field :email, type: 'email', class:"form-control" %>
+              </div>
+              <div class="form-group">
+                <%= form.submit "Submit", class:"btn btn-default form-control btn-danger"%>
+              </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
