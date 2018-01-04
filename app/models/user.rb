@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :authentications, dependent: :destroy
   has_many :listings
   enum role: [:customer, :moderator, :superadmin]
+  serialize :avatar, Array
+  mount_uploader :avatar, AvatarUploader
 
   def self.create_with_auth_and_hash(authentication, auth_hash)
     user = self.create!(

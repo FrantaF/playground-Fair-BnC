@@ -37,6 +37,9 @@ gem 'figaro'
 gem 'faker'
 gem 'kaminari'
 gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
+gem 'fog-aws'
+gem 'fog'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -26,12 +26,19 @@
               <div class="col-xs-12 col-md-12">
                 <p class="lead">From MYR<%=list.price%> per night</p>
               </div>
-              <% if @user == current_user %>
-              <%= form_for :listing, url:user_listing_path(params[:id]), html:{method: :delete} do |form| %>
-              <%= form.hidden_field :list_id, value:list.id  %>
-              <%= form.submit "Delete Listing", class:"btn btn-lg btn-danger align-center"%>
-              <% end %>
-              <% end %>
+              <div class="form-group">
+                <% if @user == current_user %>
+                  <button class="btn btn-lg btn-info align-center" onclick="window.location.href='/users/<%=list.user_id%>/listings/<%=list.id%>/edit'">Update Listing</button>
+                <% end %>
+              </div>
+              <div class="form-group">
+                <% if @user == current_user %>
+                  <%= form_for :listing, url:user_listing_path(params[:id]), html:{method: :delete} do |form| %>
+                  <%= form.hidden_field :list_id, value:list.id  %>
+                  <%= form.submit "Delete Listing", class:"btn btn-lg btn-danger align-center"%>
+                  <%end%>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
