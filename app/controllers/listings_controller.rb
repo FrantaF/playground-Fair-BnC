@@ -1,4 +1,5 @@
 require 'byebug'
+
 class ListingsController < ApplicationController
 
   def show
@@ -10,6 +11,7 @@ class ListingsController < ApplicationController
     if @listing.save
       redirect_to '/'
     else
+      p @listing.errors
       redirect_to new_user_listing_path
     end
   end
@@ -23,7 +25,7 @@ class ListingsController < ApplicationController
   private
 
   def listing_params
-    params.require(:listing).permit(:name,:place_type,:property_type,:address,:description,:country,:state,:city,:guest_number,:room_number,:bed_number,:zipcode,:price, :user_id)
+    params.require(:listing).permit(:name,:place_type,:property_type,:address,:description,:country,:state,:city,:guest_number,:room_number,:bed_number,:zipcode,:price, :user_id, {photos:[]})
   end
 
   def destroy_params
