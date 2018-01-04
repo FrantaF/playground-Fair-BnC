@@ -34,6 +34,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'figaro'
+gem 'faker'
+gem 'kaminari'
+gem 'carrierwave', '~> 1.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

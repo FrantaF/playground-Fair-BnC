@@ -1,0 +1,38 @@
+<%= render partial: "navbar"%>
+
+<div class="form-background">
+<div class="container" style="padding-top:150px;">
+  <div class="update-box">
+  <h2 class="text-center">Update Your Profile</h2>
+  <%= form_for :user, url: user_path(User.find(params[:id])), html: { method: :put } do |form| %>
+  <div class="form-group">
+    <%= form.text_field :first_name, placeholder:"First name", class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.text_field :last_name, placeholder:"Last name", class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.text_field :email, placeholder:"Email", type: 'email', class:"form-control" %>
+  </div>
+    <div class="form-group">
+  <%= form.text_field :phone, placeholder:"(country code) - Phone Number", class:"form-control" %>
+    </div>
+  <div class="form-group">
+    <%= form.text_field :country, placeholder:"Country you live in", class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.text_field :gender, placeholder:"Male or Female", class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.date_field :birthdate, class:"form-control" %>
+  </div>
+  <div class="form-group">
+    <%= form.submit "Update", class:"btn btn-default form-control btn-danger"%>
+  </div>
+  <% end %>
+</div>
+</div>
+</div>
+
+
+<%= render partial: "footer"%>
