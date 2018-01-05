@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
+    resources :reservations, only:[:show, :destroy, :create, :index]
     resources :listings
   end
 

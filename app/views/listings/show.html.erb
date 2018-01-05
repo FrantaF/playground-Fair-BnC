@@ -39,11 +39,6 @@
   <% end %>
 
 
-
-
-
-
-
 </div>
 
 <div class="container">
@@ -64,6 +59,10 @@
   <div class="row col-lg-12">
     <p style="font-size:1.5em;"><%=@listing.description%></p>
   </div>
+  <div>
+    <%= render partial: "reservations/form" %>
+  </div>
 </div>
+
 
 <%= render partial: "users/footer" %>

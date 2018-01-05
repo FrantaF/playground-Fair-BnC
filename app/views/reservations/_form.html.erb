@@ -1,0 +1,24 @@
+<%= form_for @reservation, url: user_reservations_path do |f| %>
+<% if @errors.present? %>
+   <div>
+     <p><%= @errors %></p>
+   </div>
+<% end %>
+<%= f.hidden_field :listing_id, value:@listing.id %>
+<%= f.hidden_field :user_id, value:current_user.id%>
+  <div>
+    <%= f.label :num_guests %>
+    <%= f.number_field :num_guests %>
+  </div>
+  <div>
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date %>
+  </div>
+  <div>
+    <%= f.label :end_date %>
+    <%= f.date_field :end_date %>
+  </div>
+  <div>
+    <%= f.submit "Submit Reservation" %>
+  </div>
+<% end %>

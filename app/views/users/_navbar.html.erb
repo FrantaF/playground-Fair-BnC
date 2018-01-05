@@ -9,9 +9,10 @@
       </div>
       <button type="submit" class="btn btn-lg btn-primary">Submit</button>
     </form>
-    <ul class="nav navbar-nav navbar-right col-lg-4 navbar-align">
+    <ul class="nav navbar-nav navbar-right col-lg-5 navbar-align">
       <% if signed_in? %>
       <li style="font-size:1.25em;"><a href="/users/<%=current_user.id%>/listings/new">Add a new listing</a></li>
+      <li style="font-size:1.25em;"><a href="/users/<%=current_user.id%>/reservations">My reservations</a></li>
       <% end %>
       <li style="font-size:1.25em;"><a href="#">Help</a></li>
       <% if signed_in? %>
