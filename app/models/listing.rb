@@ -4,4 +4,5 @@ class Listing < ApplicationRecord
   enum status: [:pending, :verified]
   mount_uploaders :photos, PhotosUploader
   serialize :photos, Array
+
 end
