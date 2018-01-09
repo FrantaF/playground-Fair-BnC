@@ -3,6 +3,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
       # redirect_to user_path(@reservation.user_id)
+      PostmanWorker.perform_later(current_user.id)
       redirect_to payment_new_path
     else
       @listing = Listing.find(@reservation.listing_id)
