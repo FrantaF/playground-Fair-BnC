@@ -1,7 +1,7 @@
 <div class="body-container">
   <nav class="navbar">
     <div>
-      <%= link_to "#{image_url('fairbnc-logo.png', style:"height:65px; width:auto;", class:"align-center")}".html_safe, '/' %>
+      <a href="https://fair-bnc.herokuapp.com"><img src="images/fairbnc-logo.png" style="height:65px; width:auto;" class="align-center"></a>
     </div>
   </nav>
   <div>
@@ -12,9 +12,9 @@
     </div>
     <div>
       <% if @listing.photos? %>
-      <%= image_url(@listing.photos.first) %>
+      <a href="https://fair-bnc.herokuapp.com/users/<%=@user.id%>/reservations"><img src="<%=@listing.photos.first%>"></a>
       <% else %>
-      <%= image_url("fairbnc-room-photo.jpg") %>
+      <a href="https://fair-bnc.herokuapp.com/users/<%=@user.id%>/reservations"><img src="images/fairbnc-room-photo.jpg"></a>
       <% end %>
     </div>
     <div>
