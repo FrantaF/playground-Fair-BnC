@@ -1,0 +1,40 @@
+<%= render partial: "users/navbar"%>
+
+
+<div class="container" style="padding-top: 150px;">
+  <div class="well">
+    <h1>My Reservations</h1>
+    <h3><%= @user.first_name %>, <%= @user.last_name %></h3>
+  </div>
+  <% if @reservations == [] %>
+    <h4>You have no reservations at the moment</h4>
+  <% else  %>
+  <div class="container">
+    <table class="table table-hover">
+      <tr>
+        <th>Listing Title</th>
+        <th>Strat Date</th>
+        <th>End Date</th>
+        <th>Num Guests</th>
+        <th>Total Price</th>
+        <th>Action</th>
+      </tr>
+  <% @reservations.each do |r| %>
+      <tr>
+        <td><%= link_to r.listing.name, "/users/#{r.user_id}/listings/#{r.listing_id}" %></td>
+        <td><%= r.start_date %> </td>
+        <td><%= r.end_date %> </td>
+        <td><%= r.num_guests %> </td>
+        <td><%= r.id %> </td>
+        <td><%= link_to 'Cancel Reservation', user_reservation_path(r.user_id, r.id), method: :delete %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+  <% end %>
+</div>
+
+
+
+
+<%= render partial: "users/footer" %>

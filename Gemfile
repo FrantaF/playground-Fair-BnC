@@ -40,6 +40,12 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick'
 gem 'fog-aws'
 gem 'fog'
+gem 'bootstrap-datepicker-rails'
+gem 'filterrific'
+gem 'braintree'
+gem "letter_opener", :group => :development
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

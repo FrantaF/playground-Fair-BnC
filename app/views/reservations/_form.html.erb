@@ -1,0 +1,25 @@
+<%= form_for @reservation, url: user_reservations_path do |f| %>
+<% if @errors.present? %>
+   <div>
+     <p><%= @errors %></p>
+   </div>
+<% end %>
+<%= f.hidden_field :listing_id, value:@listing.id %>
+<%= f.hidden_field :user_id, value:current_user.id%>
+  <div>
+    <%= f.label :num_guests %>
+    <%= f.number_field :num_guests %>
+  </div>
+
+  <div class="input-group" id="datepicker">
+    <%= f.label :start_date %>
+    <%= f.text_field :start_date, data:{provide:"datepicker"}%><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+  </div>
+  <div class="input-group date" id="datepicker">
+    <%= f.label :end_date %>
+    <%= f.text_field :end_date, data:{provide:"datepicker"}%><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+  </div>
+  <div>
+    <%= f.submit "Submit Reservation" %>
+  </div>
+<% end %>
