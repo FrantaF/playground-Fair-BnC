@@ -46,6 +46,7 @@ gem 'braintree'
 gem "letter_opener", :group => :development
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'jquery-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

@@ -1,6 +1,11 @@
 <%= render partial: "navbar" %>
 
 <div class="container" style="padding-top: 150px">
+  <div class="row" id="home-page-title">
+    <div>
+      <h1 class="text-align">Experience Bed & Coffee &nbsp;<small class="text-muted"> Comfortably - Any where around the world!</small></h1>
+    </div>
+  </div>
   <div class="row list-group">
     <% @listings.each do |list| %>
       <a href="/users/<%=list.user_id%>/listings/<%=list.id%>">
@@ -22,7 +27,7 @@
     </a>
     <% end %>
   </div>
-  <div class="text-center"><%= paginate @listings %></div>
+  <div class="text-center" style="font-size:1.75em;"><%= paginate @listings %></div>
 </div>
 
 <%= render partial: "footer" %>

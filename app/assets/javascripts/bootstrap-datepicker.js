@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License v2.0 (http://www.apache.org/licenses/LICENSE-2.0)
  */
-
+$(document).on('turbolinks:load',function(){
 
 (function(factory){
     if (typeof define === "function" && define.amd) {
@@ -2029,3 +2029,4 @@
 	});
 
 }));
+});

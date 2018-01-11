@@ -1,56 +1,91 @@
 <%= render partial: "navbar" %>
 
+
 <div class="container" style="padding-top: 150px;">
-  <div class="well">
-    <h1><%=@user.first_name%>, <%=@user.last_name%></h1>
-    <h4><%=@user.country%> | Joined on:<%=@user.created_at%></h4>
-  </div>
-  <% if @user==current_user%>
-  <button class="btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
-  <% end %>
-</div>
+  <div class="profile-main-content">
+     <div class="profile-left">
+       <div>
+         <%= image_tag(@user.avatar, id:"profile-page-profile-image") %>
+       </div>
+      <div class="profile-page-about-me">
+          <div class="about-me-title">
+            <h3>About me</h3>
+          </div>
+          <div class="about-me-content">
+
+            <strong><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email</strong>
+            <ul>
+              <li> <%= @user.email %></li>
+            </ul>
+            <% if @user.birthdate %>
+            <strong><span class="glyphicon glyphicon-baby-formula"></span>&nbsp; I'm born on</strong>
+            <ul>
+              <li> <%= @user.birthdate.strftime('%d %B %Y') %></li>
+            </ul>
+            <% end %>
+            <% if @user.country %>
+            <strong><span class="glyphicon glyphicon-flag"></span>&nbsp; Where I'm from</strong>
+            <ul>
+              <li> <%= @user.country %></li>
+            </ul>
+            <% end %>
+            <% if @user == current_user%>
+            <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+            <% end %>
+          </div>
+      </div>
+      </div>
 <% if @user_listing %>
-<div class="container" style="margin-top:50px;">
-  <div class="row list-group">
-    <% @user_listing.order(:updated_at) %>
-    <% @user_listing.each do |list| %>
-    <a href="/users/<%=list.user_id%>/listings/<%=list.id%>" target="_blank">
-      <div class="item col-lg-4" style="min-height: 450px;">
-        <div class="thumbnail">
-          <%= image_tag("fairbnc-room-photo.jpg") %>
-          <div class="caption">
-            <p class="group inner list-group-item-text"><%=list.property_type%> &middot; <%= list.bed_number %> BEDS &middot; <%= list.country %></p>
-            <h2 class="group inner list-group-item-heading"><%= list.name %></h2>
-            <p class="group inner list-group-item-text"><%= list.description %></p>
-            <div class="row">
-              <div class="col-xs-12 col-md-12">
-                <p class="lead">From MYR<%=list.price%> per night</p>
-              </div>
-              <div class="form-group">
-                <% if @user == current_user %>
-                  <button class="btn btn-lg btn-info align-center" onclick="window.location.href='/users/<%=list.user_id%>/listings/<%=list.id%>/edit'">Update Listing</button>
-                <% end %>
-              </div>
-              <div class="form-group">
-                <% if @user == current_user %>
-                  <%= form_for :listing, url:user_listing_path(params[:id]), html:{method: :delete} do |form| %>
-                  <%= form.hidden_field :list_id, value:list.id  %>
-                  <%= form.submit "Delete Listing", class:"btn btn-lg btn-danger align-center"%>
-                  <%end%>
-                <% end %>
+    <div class="profile-right">
+      <div>
+        <h1>Hey, I'm <%=@user.first_name%>!</h1>
+        <h3>Joined in <%=@user.created_at.strftime('%B %Y')%></h3>
+      </div>
+      <div>
+        <h2>Enjoy your stay at any of my BnC location!</h2>
+      </div>
+      <div class="row list-group">
+        <% @user_listing.order(:updated_at) %>
+        <% @user_listing.each do |list| %>
+        <a href="/users/<%=list.user_id%>/listings/<%=list.id%>" target="_blank">
+          <div class="item col-lg-4" style="min-height: 450px;">
+            <div class="thumbnail">
+              <%= image_tag("fairbnc-room-photo.jpg") %>
+              <div class="caption">
+                <p class="group inner list-group-item-text"><%=list.property_type%> &middot; <%= list.bed_number %> BEDS &middot; <%= list.country %></p>
+                <h2 class="group inner list-group-item-heading"><%= list.name %></h2>
+                <p class="group inner list-group-item-text"><%= list.description %></p>
+                <div class="row">
+                  <div class="col-xs-12 col-md-12">
+                    <p class="lead">From MYR<%=list.price%> per night</p>
+                  </div>
+                  <div class="form-group">
+                    <% if @user == current_user %>
+                      <button class="btn btn-lg btn-info align-center" onclick="window.location.href='/users/<%=list.user_id%>/listings/<%=list.id%>/edit'">Update Listing</button>
+                    <% end %>
+                  </div>
+                  <div class="form-group">
+                    <% if @user == current_user %>
+                      <%= form_for :listing, url:user_listing_path(params[:id]), html:{method: :delete} do |form| %>
+                      <%= form.hidden_field :list_id, value:list.id  %>
+                      <%= form.submit "Delete Listing", class:"btn btn-lg btn-danger align-center"%>
+                      <%end%>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </a>
+        <% end %>
       </div>
-    </a>
+      <% if @user_listing %>
+      <div class="text-center"><%= paginate @user_listing %></div>
+      <% end %>
+    </div>
     <% end %>
   </div>
-  <% if @user_listing %>
-  <div class="text-center"><%= paginate @user_listing %></div>
-  <% end %>
 </div>
-<% end %>
 
 
 

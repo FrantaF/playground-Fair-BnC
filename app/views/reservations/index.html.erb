@@ -2,39 +2,104 @@
 
 
 <div class="container" style="padding-top: 150px;">
-  <div class="well">
-    <h1>My Reservations</h1>
-    <h3><%= @user.first_name %>, <%= @user.last_name %></h3>
-  </div>
-  <% if @reservations == [] %>
-    <h4>You have no reservations at the moment</h4>
-  <% else  %>
-  <div class="container">
-    <table class="table table-hover">
-      <tr>
-        <th>Listing Title</th>
-        <th>Strat Date</th>
-        <th>End Date</th>
-        <th>Num Guests</th>
-        <th>Total Price</th>
-        <th>Action</th>
-      </tr>
-  <% @reservations.each do |r| %>
-      <tr>
-        <td><%= link_to r.listing.name, "/users/#{r.user_id}/listings/#{r.listing_id}" %></td>
-        <td><%= r.start_date %> </td>
-        <td><%= r.end_date %> </td>
-        <td><%= r.num_guests %> </td>
-        <td><%= r.id %> </td>
-        <td><%= link_to 'Cancel Reservation', user_reservation_path(r.user_id, r.id), method: :delete %></td>
-      </tr>
-    <% end %>
-    </table>
-  </div>
-  <% end %>
+  <div class="profile-main-content">
+     <div class="profile-left">
+       <div>
+         <%= image_tag(@user.avatar, id:"profile-page-profile-image") %>
+       </div>
+        <div class="profile-page-about-me">
+          <div class="about-me-title">
+            <h3>About me</h3>
+          </div>
+          <div class="about-me-content">
+            <strong><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email</strong>
+            <ul>
+              <li> <%= @user.email %></li>
+            </ul>
+            <% if @user.birthdate %>
+            <strong><span class="glyphicon glyphicon-baby-formula"></span>&nbsp; I'm born on</strong>
+            <ul>
+              <li> <%= @user.birthdate.strftime('%d %B %Y') %></li>
+            </ul>
+            <% end %>
+            <% if @user.country %>
+            <strong><span class="glyphicon glyphicon-flag"></span>&nbsp; Where I'm from</strong>
+            <ul>
+              <li> <%= @user.country %></li>
+            </ul>
+            <% end %>
+            <% if @user == current_user%>
+            <button class="align-center btn btn-lg btn-primary" onclick="window.location.href='/users/<%=current_user.id%>/edit'">Edit Profile</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="profile-right">
+        <div>
+          <h1>Hey, <%= @user.first_name %>!</h1>
+          <h2>Checkout your reservation</h2>
+        </div>
+
+        <div>
+          <h3 class="text-info">Reservations Pending Payment</h3>
+        </div>
+        <% if @reservations == [] %>
+          <h4>You have no reservations at the moment</h4>
+        <% else  %>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <tr>
+              <th class="text-center">Listing Title</th>
+              <th class="text-center">Strat Date</th>
+              <th class="text-center">End Date</th>
+              <th class="text-center">Num Guests</th>
+              <th class="text-center">Total Price</th>
+              <th class="text-center">Action</th>
+              <th class="text-center">Payment</th>
+            </tr>
+        <% @reservations.each do |r| %>
+            <tr>
+              <td class="text-center"><%= link_to r.listing.name, "/users/#{r.user_id}/listings/#{r.listing_id}" %></td>
+              <td class="text-center"><%= r.start_date %> </td>
+              <td class="text-center"><%= r.end_date %> </td>
+              <td class="text-center"><%= r.num_guests %> </td>
+              <td class="text-center">RM<%= ((r.end_date - r.start_date) * Listing.find(r.listing_id).price).to_i %> </td>
+              <td class="text-center"><%= link_to 'Cancel Reservation', user_reservation_path(r.user_id, r.id), method: :delete %></td>
+            <% if r.payment == "unpaid" %>
+              <td class="text-center"> Unpaid | <%= link_to 'Pay', payment_new_user_listing_reservation_path(user_id: r.user_id, listing_id: r.listing_id, id:r.id) %></td>
+            <% else %>
+              <td class="text-center"> Paid </td>
+            <% end %>
+            </tr>
+          <% end %>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="text-info">My Up Coming Trips</h3>
+        </div>
+        <div class="row list-group">
+          <% @trip_listing = @reservations.page params[:page] %>
+          <% @trip_listing.each do |r| %>
+          <% list = Listing.find(r.listing_id) %>
+          <a href="/users/<%=list.user_id%>/listings/<%=list.id%>" target="_blank">
+            <div class="item col-lg-4" style="min-height: 325px;">
+              <div class="thumbnail">
+                <%= image_tag("fairbnc-room-photo.jpg") %>
+                <div class="caption">
+                  <p class="group inner list-group-item-text"><%=list.property_type%> &middot; <%= list.bed_number %> BEDS &middot; <%= list.country %></p>
+                  <h2 class="group inner list-group-item-heading"><%= list.name %></h2>
+                  <p class="group inner list-group-item-text"><%= list.description %></p>
+                </div>
+              </div>
+            </div>
+          </a>
+          <% end %>
+          <div class="text-center" style="font-size:1.75em;"><%= paginate @trip_listing %></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
 </div>
-
-
-
 
 <%= render partial: "users/footer" %>

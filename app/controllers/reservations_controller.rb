@@ -3,8 +3,8 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
     if @reservation.save
       # redirect_to user_path(@reservation.user_id)
-      PostmanWorker.perform_later(current_user.id)
-      redirect_to payment_new_path
+      PostmanWorker.perform_later(current_user.id, params[:listing_id], @reservation.id)
+      redirect_to user_reservations_path(current_user.id)
     else
       @listing = Listing.find(@reservation.listing_id)
       @errors = @reservation.errors.full_messages
@@ -20,8 +20,12 @@ class ReservationsController < ApplicationController
   end
 
   def index
-    @user = User.find(params[:user_id])
-    @reservations = Reservation.order(updated_at: :desc)
+    if !current_user
+      redirect_to '/'
+    else
+    @user = current_user
+    @reservations = @user.reservations.order(updated_at: :desc)
+    end
   end
 
 private

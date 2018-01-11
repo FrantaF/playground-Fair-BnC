@@ -3,12 +3,17 @@ class Reservation < ApplicationRecord
   belongs_to :listing
   validate :check_overlapping_dates
   validate :check_max_guests
+  enum payment: [:unpaid, :paid]
 
 
   def check_overlapping_dates
     listing.reservations.each do |old_booking|
       if overlap?(self, old_booking)
-        errors.add(:overlapping_dates, "The reservation dates conflict with existing reservations")
+        if self == old_booking
+          return true
+        else
+          errors.add(:overlapping_dates, "The reservation dates conflict with existing reservations")
+        end
       end
     end
   end

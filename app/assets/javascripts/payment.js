@@ -4,10 +4,6 @@ var form = document.querySelector('#cardForm');
 var submit = document.querySelector("#submit-payment-btn");
 
 
-console.log(form)
-console.log(submit)
-console.log(authorization)
-
 braintree.client.create({
   // Replace this with your own authorization.
   authorization: authorization

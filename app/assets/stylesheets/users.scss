@@ -88,3 +88,56 @@
   background-position: top;
   background-blend-mode:lighten;
 }
+
+.profile-main-content {
+  display:flex;
+}
+
+.profile-left {
+  padding: 10px;
+  display: flex;
+  flex-direction:column;
+  width: 25%;
+}
+
+.profile-right {
+  padding: 10px;
+  width: 75%;
+
+}
+
+#profile-page-profile-image {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+
+}
+
+.profile-page-about-me {
+  border: solid 1px #ececec;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-me-title {
+  background-color: #ececec;
+  padding: 0 30px 5px 30px;
+  font-family:sans-serif;
+
+}
+
+.about-me-content {
+  font-size: 1.25em;
+  padding: 20px 30px;
+  font-family: sans-serif;
+}
+
+.about-me-content ul {
+  margin-bottom: 10px;
+}
+
+
+.about-me-content ul li {
+  list-style:none;
+  text-indent: -40px
+}

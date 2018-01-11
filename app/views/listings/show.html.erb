@@ -37,30 +37,43 @@
     </a>
   </div>
   <% end %>
-
-
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-lg-8">
-    <h1 class="list-group-item-heading"><%= @listing.name %>
-    <p class="lead"><%= @listing.property_type %> &middot; <%= @listing.country %></p>
-    <p class="list-group-item-text" style="font-size:1em;"><i class="fa fa-group"></i>&nbsp;<%= @listing.guest_number %>&nbsp;GUESTS&nbsp;&nbsp;
-      <i class="fa fa-home"></i>&nbsp;<%= @listing.room_number %>&nbsp;ROOMS&nbsp;&nbsp;
-      <i class="fa fa-bed"></i>&nbsp;<%= @listing.bed_number %>&nbsp;BEDS
-    </p>
+  <div class="listing-main-content">
+    <div class="listing-content-left">
+      <div class="list-head">
+        <div class="list-head-1">
+          <h1 class="list-group-item-heading"><%= @listing.name %>
+          <p class="lead"><%= @listing.property_type %> &middot; <%= @listing.country %></p>
+        </div>
+        <div class="list-head-2">
+          <% if @user.avatar? %>
+          <%= link_to "#{image_tag(@user.avatar.thumb, style:"border-radius:50%;")}".html_safe, user_path(@listing.user_id)%>
+          <% else %>
+          <%= link_to "#{image_tag("profile-placeholder.png", style:"border-radius:50%; width:50px; height:50px;")}".html_safe, user_path(@listing.user_id) %>
+          <% end %>
+          <p class="lead" style="font-size:1.5em;"><%= @user.first_name %></p>
+        </div>
+      </div>
+      <div>
+        <p class="list-group-item-text" style="font-size:1em;"><i class="fa fa-group"></i>&nbsp;<%= @listing.guest_number %>&nbsp;GUESTS&nbsp;&nbsp;
+          <i class="fa fa-home"></i>&nbsp;<%= @listing.room_number %>&nbsp;ROOMS&nbsp;&nbsp;
+          <i class="fa fa-bed"></i>&nbsp;<%= @listing.bed_number %>&nbsp;BEDS
+        </p>
+      </div>
+      <div>
+        <p style="font-size:1.5em;"><%=@listing.description%></p>
+      </div>
     </div>
-    <div class="col-lg-4">
-      <%= link_to "#{image_tag("fairbnc-profile-photo.jpg", style:"border-radius:50%; height:100px; width:100px")}".html_safe, user_path(@listing.user_id)%>
-      <p class="lead" style="font-size:1.5em;"><%= User.find(params[:user_id]).first_name %> <%= User.find(params[:user_id]).last_name %></p>
+    <div class="listing-content-right">
+      <div class="booking-form">
+        <h2>RM<%=@listing.price%>&nbsp;<small class="text-disabled">per night</small></h2>
+        <hr/>
+        <%= render partial: "reservations/form" %>
+        <p class="text-disabled text-center">You won't be charge yet</[]>
+      </div>
     </div>
-  </div>
-  <div class="row col-lg-12">
-    <p style="font-size:1.5em;"><%=@listing.description%></p>
-  </div>
-  <div>
-    <%= render partial: "reservations/form" %>
   </div>
 </div>
 
