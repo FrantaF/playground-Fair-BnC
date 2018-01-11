@@ -1,9 +1,4 @@
-< <!DOCTYPE html>
-<html>
-<head>
-  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-</head>
-<body class="body-container">
+<div class="body-container">
   <nav class="navbar">
     <div>
       <%= link_to "#{image_tag("fairbnc-logo.png", style:"height:65px; width:auto;", class:"align-center")}".html_safe, '/' %>
@@ -16,23 +11,26 @@
       <p>Please proceed to make payment via the link provided below or through your reservation record page.</p>
     </div>
     <div>
+      <% if @listing.photos? %>
       <%= image_tag(@listing.photos.first) %>
+      <% else %>
+      <%= image_tag("fairbnc-room-photo") %>
+      <% end %>
     </div>
     <div>
       <p><%=@listing.name%></p>
       <p><%=@listing.country%> &middot; <%= @listing.city %></p>
     </div>
     <div>
-      <% @total = @listing.price * (@reservation.start_date - @reservation.end_date) %>
+      <% @total = @listing.price * (@reservation.end_date - @reservation.start_date) %>
       <h2>Total Payment Due: RM<%=@total%></h2>
     </div>
-    <p> Delivered with From,</p>
+    <p> Delivered with love,</p>
     <h4>Fair-BnC Team</h4>
   </div>
   <footer>
   </footer>
-</body>
-</html>
+</div>
 
 <style>
 
