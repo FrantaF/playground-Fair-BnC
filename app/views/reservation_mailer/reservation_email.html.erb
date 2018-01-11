@@ -1,7 +1,7 @@
 <div class="body-container">
   <nav class="navbar">
     <div>
-      <a href="https://fair-bnc.herokuapp.com"><img src="/images/fairbnc-logo.png" style="height:65px; width:auto;" class="align-center"></a>
+      <a href="https://fair-bnc.herokuapp.com"><%= image_tag("/images/fairbnc-logo.png" style:"height:65px; width:auto;" class:"align-center")%></a>
     </div>
   </nav>
   <div>
@@ -14,7 +14,7 @@
       <% if @listing.photos? %>
       <a href="https://fair-bnc.herokuapp.com/users/<%=@user.id%>/reservations"><img src="<%=@listing.photos.first%>"></a>
       <% else %>
-      <a href="https://fair-bnc.herokuapp.com/users/<%=@user.id%>/reservations"><img src="/images/fairbnc-room-photo.jpg"></a>
+      <a href="https://fair-bnc.herokuapp.com/users/<%=@user.id%>/reservations"><%=image_tag('fairbnc-room-photo.jpg')%></a>
       <% end %>
     </div>
     <div>
