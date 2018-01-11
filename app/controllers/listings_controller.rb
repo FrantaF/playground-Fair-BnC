@@ -1,5 +1,3 @@
-require 'byebug'
-
 class ListingsController < ApplicationController
 
   def show
