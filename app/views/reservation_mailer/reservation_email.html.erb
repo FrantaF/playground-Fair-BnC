@@ -1,7 +1,7 @@
 <div class="body-container">
   <nav class="navbar">
     <div>
-      <%= link_to "#{image_tag('fairbnc-logo.png', style:"height:65px; width:auto;", class:"align-center")}".html_safe, '/' %>
+      <%= link_to "#{image_url('fairbnc-logo.png', style:"height:65px; width:auto;", class:"align-center")}".html_safe, '/' %>
     </div>
   </nav>
   <div>
@@ -12,9 +12,9 @@
     </div>
     <div>
       <% if @listing.photos? %>
-      <%= image_tag(@listing.photos.first) %>
+      <%= image_url(@listing.photos.first) %>
       <% else %>
-      <%= image_tag("fairbnc-room-photo.jpg") %>
+      <%= image_url("fairbnc-room-photo.jpg") %>
       <% end %>
     </div>
     <div>
