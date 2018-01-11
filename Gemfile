@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.3.4'
+ruby '2.4.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
@@ -47,7 +47,6 @@ gem "letter_opener", :group => :development
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'jquery-rails'
-gem 'unicorn'
 gem 'rack-timeout'
 
 # Use Capistrano for deployment
@@ -58,9 +57,6 @@ group :development, :test do
   gem 'byebug', platform: :mri
 end
 
-group :production do
-  gem 'rails_12factor'
-end
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
